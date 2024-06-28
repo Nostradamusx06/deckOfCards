@@ -1,14 +1,14 @@
 import './style.css'
 
 const cards = document.querySelectorAll('.card');
-const shuffleBtn = document.querySelector('.shuffle-btn');
+const shuffleBtn = document.querySelector('.shuffle-button');
 
 let deckId;
 let cardsData = [];
 let openedCards = 0;
 
 // Fetch a new deck of cards
-fetch('https://deckofcardsapi.com/api/deck/new/shuffle/')
+fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?cards=AS,AD,AC,AH')
   .then(response => response.json())
   .then(data => {
     deckId = data.deck_id;
@@ -42,17 +42,13 @@ function updateCards() {
 // Handle card click
 cards.forEach((card) => {
   card.addEventListener('click', () => {
-    card.classList.add('flipped');
-    openedCards++;
+    if (!card.classList.contains('flipped')) {
+      card.classList.add('flipped');
+      openedCards++;
 
-    if (openedCards === 4) {
-      shuffleBtn.classList.remove('hidden');
-    }
-
-    if (cards.every(card => card.classList.contains('flipped'))) {
-      shuffleBtn.classList.remove('hidden');
-    } else {
-      shuffleBtn.classList.add('hidden');
+      if (openedCards === 4) {
+        shuffleBtn.classList.remove('hidden');
+      }
     }
   });
 });
@@ -80,6 +76,11 @@ shuffleBtn.addEventListener('click', () => {
   });
 
   setTimeout(() => {
-    shuffleCards();
-  }, (cards.length * 200) + 1000);
+    fetch(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`)
+      .then(response => response.json())
+      .then(data => {
+        shuffleCards();
+      })
+      .catch(error => console.error(error));
+  }, (cards.length * 200));
 });

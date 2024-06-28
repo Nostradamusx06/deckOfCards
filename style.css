@@ -9,7 +9,7 @@ body {
   transition: all 0.5s;
 
   background-color: #f0f0f0;
-  box-shadow: 0px -40px 100px -88px rgba(34, 60, 80, 0.6) inset;
+  box-shadow: 0 -40px 100px -88px rgba(34, 60, 80, 0.6) inset;
 }
 
 .game-container {
@@ -49,9 +49,8 @@ body {
   width: 100%;
   height: 100%;
 
-  transition: transform 0.5s, opacity 0.5s;
 
-  background-size: cover;
+  background: no-repeat center/cover;
 
   backface-visibility: hidden;
 }
@@ -74,7 +73,7 @@ body {
 .card.flipped {
   animation: flipCard 1s ease-in-out forwards;
 
-  background-image: none;
+  background: none;
 }
 
 @keyframes flipCard {
@@ -93,7 +92,7 @@ body {
 
 }
 
-.shuffle-btn {
+.shuffle-button {
   font-size: 16px;
 
   position: absolute;
@@ -101,7 +100,6 @@ body {
   padding: 10px 40px;
 
   cursor: pointer;
-  transition: opacity 0.5s;
 
   color: #ffffff;
   border: none;
@@ -109,7 +107,7 @@ body {
   background-color: #000000;
 }
 
-.shuffle-btn.hidden {
+.shuffle-button.hidden {
   pointer-events: none;
 
   opacity: 0;
