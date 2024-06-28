@@ -78,17 +78,17 @@ body {
 
 @keyframes flipCard {
 
-0% {
-  transform: rotateX(40deg);
-}
+  0% {
+    transform: rotateX(40deg);
+  }
 
-50% {
-  transform: translateY(-280px);
-}
+  50% {
+    transform: translateY(-280px);
+  }
 
-100% {
-  transform: translateY(-280px) rotateY( 180deg);
-}
+  100% {
+    transform: translateY(-280px) rotateY(180deg);
+  }
 
 }
 
@@ -104,6 +104,8 @@ body {
   color: #ffffff;
   border: none;
   border-radius: 13px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
   background-color: #000000;
 }
 
