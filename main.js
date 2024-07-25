@@ -1,4 +1,3 @@
-import './style.css'
 (function () {
   const cards = document.querySelectorAll('.card');
   const shuffleBtn = document.querySelector('.shuffle-button');
@@ -8,22 +7,37 @@ import './style.css'
   let openedCards = 0;
 
   fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?cards=AS,AD,AC,AH')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(data => {
       deckId = data.deck_id;
       shuffleCards();
     })
-    .catch(error => console.error(error));
-
+    .catch(error => {
+      console.error('Ошибка:', error);
+      alert('Не удалось загрузить данные. Пожалуйста, попробуйте позже.');
+    });
 
   const shuffleCards = () => {
     fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=4`)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
         cardsData = data.cards;
         updateCards();
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Не удалось загрузить карты. Пожалуйста, попробуйте позже.');
+      });
   }
 
   const updateCards = () => {
@@ -72,11 +86,19 @@ import './style.css'
 
     setTimeout(() => {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`)
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
         .then(data => {
           shuffleCards();
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error('Ошибка:', error);
+          alert('Не удалось перетасовать карты. Пожалуйста, попробуйте позже.');
+        });
     }, (cards.length * 200));
   });
 })();
